@@ -1,0 +1,43 @@
+---
+title: "BeautifulFirstProjectPhDToolbox"
+output: pdf_document
+---
+
+
+#I want to see if the plant density influence the abundance of insects
+
+```{r, echo=FALSE}
+
+# update di Rstudio. 
+#With this computer I'm using R version 3.2.5, beacuse the newest version give me a fatal error(I'm using windows xp)
+# download GIT
+
+# install packages 
+install.packages("tidyverse")
+library("tidyverse")
+
+install.packages("dplyr")
+library("dplyr")
+
+install.packages("ggplot2")
+library("ggplot2")
+
+
+#I modified the excell file, creating a file csv called prova.csv
+# Using read.csv I took the csv file, I used the function sep because the file has the ";" as separator
+
+ecology <- read.csv("c:/Documents and Settings/mike/Desktop/silvia/beautiful/data/raw/prova.csv", sep = ";")
+
+#I want to see the file, and change colnames
+View(ecology)
+ncol(ecology)
+colnames(ecology)
+coltochange <- c(3,4,5,6,7)
+names(ecology)[coltochange] <- c("Time_of_day", "Temperature", "Plant_density", "Abundance_of_insects", "Taxonomic_units")
+colnames(ecology)
+
+ggplot(data = ecology)
+provaplantdensity <- ggplot(data = ecology, aes(x = Plant_density, y = Abundance_of_insects)) 
+provaplantdensity + geom_bar(aes(fill = Plant_density), stat = "identity", position = "dodge") + facet_grid(~Time_of_day) + theme_classic() +xlab("Plant density") + ylab("Abundance of insects")
+
+```
